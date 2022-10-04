@@ -1,38 +1,42 @@
-import { SummaryCard, SummaryConatiner } from "./styles";
+import { SummaryCard, SummaryConatiner } from './styles'
 import { ArrowCircleDown, ArrowCircleUp, CurrencyDollar } from 'phosphor-react'
+import { priceFormatter } from '../../utils/formatter'
+import { useSummary } from '../../hooks/useSummary'
 
 export function Summary() {
-    return(
-        <SummaryConatiner>
-            <SummaryCard>
-                <header>
-                    <span>Entradas</span>
+  const summary = useSummary()
 
-                    <ArrowCircleUp size={32} color="#00b37e" />
-                </header>
+  return (
+    <SummaryConatiner>
+      <SummaryCard>
+        <header>
+          <span>Entradas</span>
 
-                <strong>R$ 17.400,00</strong>
-            </SummaryCard>
+          <ArrowCircleUp size={32} color="#00b37e" />
+        </header>
 
-            <SummaryCard>
-                <header>
-                    <span>Saídas</span>
+        <strong>{priceFormatter.format(summary.income)}</strong>
+      </SummaryCard>
 
-                    <ArrowCircleDown size={32} color="#f75a68" />
-                </header>
+      <SummaryCard>
+        <header>
+          <span>Saídas</span>
 
-                <strong>R$ 17.400,00</strong>
-            </SummaryCard>
+          <ArrowCircleDown size={32} color="#f75a68" />
+        </header>
 
-            <SummaryCard variant="green">
-                <header>
-                    <span>Total</span>
+        <strong>{priceFormatter.format(summary.outcome)}</strong>
+      </SummaryCard>
 
-                    <CurrencyDollar size={32} color="#fff" />
-                </header>
+      <SummaryCard variant="green">
+        <header>
+          <span>Total</span>
 
-                <strong>R$ 17.400,00</strong>
-            </SummaryCard>
-        </SummaryConatiner>
-    )
+          <CurrencyDollar size={32} color="#fff" />
+        </header>
+
+        <strong>{priceFormatter.format(summary.total)}</strong>
+      </SummaryCard>
+    </SummaryConatiner>
+  )
 }
